@@ -1,0 +1,42 @@
+body{
+    width: 100vw;
+    overflow-x: hidden;
+    background: rgb(255, 255, 255);
+}
+
+.mydiv{
+    width: 40vw;
+    height: 20vw;
+    margin-left: 30vw;
+    margin-top: 5vw;
+    overflow: hidden;
+
+}
+
+.image1{
+    width: 100%;
+
+}
+
+.mydiv2{
+    width: 40vw;
+    height: 20vw;
+    margin-left: 30vw;
+    margin-top: 5vw;
+    overflow: hidden;
+
+}
+
+.image2{
+    width: 100%;
+
+}
+
+.move_block{
+    width: 90vw;
+    height: 30vw;
+    overflow: hidden;
+    background-color: bisque;
+    position: relative;
+
+}
