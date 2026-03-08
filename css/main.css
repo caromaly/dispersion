@@ -3,3 +3,97 @@ body{
     overflow-x: hidden;
     background: rgb(255, 255, 255);
 }
+
+.sec1{
+    width: 100vw;
+    height: 57vw;
+    background-image: url(../images/back1sec.svg);
+    background-size: cover;
+    
+}
+
+/* .layer {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+.cursor_layer{
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    position: absolute;
+}
+
+.cursor{
+    background-image: url(../images/cur.svg);
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 1.5vw;
+    height: 2vw;
+
+} */
+
+
+
+
+
+
+
+    .scene {
+      position: relative;
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      cursor: default;
+    }
+
+    .floating {
+      position: absolute;
+      width: 1.5vw;
+      height: 2vw;
+      transition:
+        left 1.4s cubic-bezier(0.22, 1, 0.36, 1),
+        top 1.4s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 1.4s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .floating img {
+      width: 100%;
+      display: block;
+      object-fit: cover;
+    }
+
+    .floating.settled {
+      animation: drift 5s ease-in-out infinite;
+      animation-delay: var(--delay);
+    }
+
+    .floating.scatter {
+      transition:
+        left 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+        top 0.7s cubic-bezier(0.2, 0.8, 0.2, 1),
+        transform 0.7s cubic-bezier(0.2, 0.8, 0.2, 1);
+     
+    }
+
+    @keyframes drift {
+      0% {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+      }
+      25% {
+        transform: translate3d(2vw, -2vw, 0) rotate(3deg);
+      }
+      50% {
+        transform: translate3d(-3vw, 2vw, 0) rotate(-2deg);
+      }
+      75% {
+        transform: translate3d(3vw, 3vw, 0) rotate(2deg);
+      }
+      100% {
+        transform: translate3d(0, 0, 0) rotate(0deg);
+      }
+    }
