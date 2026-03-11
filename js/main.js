@@ -1,146 +1,83 @@
 document.addEventListener("DOMContentLoaded", function (){
 
+  
+const items = document.querySelectorAll(".cursor");
 
+const repelRadius = 200;
+const repelForce = 70;
 
+let mouse = {
+  x: 0,
+  y: 0
+};
 
+const basePositions = [];
 
-   const TOTAL = 30;
-   const scene = document.querySelector('.scene');
-   const IMAGE_SRC = 'images/cur.svg';
+document.addEventListener("mousemove", (e) => {
+  mouse.x = e.clientX;
+  mouse.y = e.clientY;
+});
 
-   const items = [];
+window.addEventListener("load", () => {
+  items.forEach((item, index) => {
+    const rect = item.getBoundingClientRect();
 
+    basePositions[index] = {
+      left: rect.left + window.scrollX,
+      top: rect.top + window.scrollY
+    };
 
-   function clamp(value, min, max) {
-      return Math.max(min, Math.min(max, value));
-   }
+    item.style.left = basePositions[index].left + "px";
+    item.style.top = basePositions[index].top + "px";
+    item.style.marginLeft = "0";
+    item.style.marginTop = "0";
+  });
 
+  repel();
+});
 
-   function rand(min, max) {
-      return Math.random() * (max - min) + min;
-   }
+function repel() {
+  items.forEach((item, index) => {
+    const rect = item.getBoundingClientRect();
 
-   function createItem(index) {
+    const itemX = rect.left + rect.width / 2;
+    const itemY = rect.top + rect.height / 2;
 
-   const el = document.createElement('div');
-   el.className = 'floating';
-   el.style.setProperty('--delay', `${rand(0, 4).toFixed(2)}s`);
+    const dx = itemX - mouse.x;
+    const dy = itemY - mouse.y;
 
-   const img = document.createElement('img');
-   img.src = IMAGE_SRC;
-   img.alt = `image-${index + 1}`;
+    const distance = Math.sqrt(dx * dx + dy * dy);
 
-   el.appendChild(img);
-   scene.appendChild(el);
+    let moveX = 0;
+    let moveY = 0;
 
-   const fromLeft = index < TOTAL / 2;
-   const size = Math.max(window.innerWidth * 0.03, 28);
-   const startX = fromLeft ? -size - rand(10, 140) : window.innerWidth + rand(10, 140);
-   const startY = rand(0, window.innerHeight - size);
+    if (distance < repelRadius) {
+      const angle = Math.atan2(dy, dx);
+      const force = (repelRadius - distance) / repelRadius;
 
-      el.style.left = `${startX}px`;
-      el.style.top = `${startY}px`;
-
-      const item = {
-        el,
-        size,
-        fromLeft,
-        settledX: 0,
-        settledY: 0,
-      };
-
-      items.push(item);
-
-      requestAnimationFrame(() => {
-        setTimeout(() => moveToCenter(item, index), 60 + index * 70);
-      });
-
-      el.addEventListener('mouseenter', () => scatterFromCursor(item));
+      moveX = Math.cos(angle) * force * repelForce;
+      moveY = Math.sin(angle) * force * repelForce;
     }
 
-    function moveToCenter(item, index) {
-      const centerBandXMin = window.innerWidth * 0.28;
-      const centerBandXMax = window.innerWidth * 0.72;
-      const centerBandYMin = window.innerHeight * 0.18;
-      const centerBandYMax = window.innerHeight * 0.82;
+    item.style.left = basePositions[index].left + moveX + "px";
+    item.style.top = basePositions[index].top + moveY + "px";
+  });
 
-      const columns = 6;
-      const gapX = window.innerWidth * 0.07;
-      const gapY = window.innerHeight * 0.12;
-      const col = index % columns;
-      const row = Math.floor(index / columns);
-
-      let x = window.innerWidth / 2 - (columns / 2) * gapX + col * gapX + rand(-20, 20);
-      let y = window.innerHeight / 2 - 2 * gapY + row * gapY + rand(-20, 20);
-
-      x = clamp(x, centerBandXMin, centerBandXMax);
-      y = clamp(y, centerBandYMin, centerBandYMax);
-
-      item.settledX = x;
-      item.settledY = y;
-
-      item.el.style.left = `${x}px`;
-      item.el.style.top = `${y}px`;
-      item.el.style.transform = `rotate(${rand(-20, 20).toFixed(1)}deg)`;
-
-      setTimeout(() => {
-        item.el.classList.add('settled');
-      }, 1400);
-    }
-
-    function scatterFromCursor(item) {
-      const spread = Math.min(window.innerWidth, window.innerHeight) * 0.22;
-      const angle = rand(0, Math.PI * 2);
-      const distance = rand(spread * 0.6, spread);
-
-      const targetX = clamp(
-        item.settledX + Math.cos(angle) * distance,
-        0,
-        window.innerWidth - item.size
-      );
-
-      const targetY = clamp(
-        item.settledY + Math.sin(angle) * distance,
-        0,
-        window.innerHeight - item.size
-      );
-
-      item.el.classList.add('scatter');
-      item.el.classList.remove('settled');
-      item.el.style.left = `${targetX}px`;
-      item.el.style.top = `${targetY}px`;
-      item.el.style.transform = `scale(1.15) rotate(${rand(-45, 45).toFixed(1)}deg)`;
-
-      item.settledX = targetX;
-      item.settledY = targetY;
-
-      clearTimeout(item.returnTimer);
-      item.returnTimer = setTimeout(() => {
-        item.el.classList.remove('scatter');
-        item.el.classList.add('settled');
-        item.el.style.transform = `rotate(${rand(-18, 18).toFixed(1)}deg)`;
-      }, 800);
-    }
-
-    function rebuild() {
-      scene.innerHTML = '';
-      items.length = 0;
-      for (let i = 0; i < TOTAL; i++) {
-        createItem(i);
-      }
-    }
-
-    let resizeTimer;
-    window.addEventListener('resize', () => {
-      clearTimeout(resizeTimer);
-      resizeTimer = setTimeout(rebuild, 150);
-    });
-
-    rebuild();
+  requestAnimationFrame(repel);
+}
 
 
 
+const letters = document.querySelectorAll('.anima2 div');
 
+letters.forEach(letter => {
+  letter.addEventListener('click', function () {
+    letter.style.animation = 'none';
+    letter.style.transform = 'translate(0vw, 0vw)';
+  });
+});
+
+ 
 
 
 
