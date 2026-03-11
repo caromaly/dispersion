@@ -1,6 +1,6 @@
 document.addEventListener("DOMContentLoaded", function (){
 
-  
+
 const items = document.querySelectorAll(".cursor");
 
 const repelRadius = 200;
@@ -68,18 +68,56 @@ function repel() {
 
 
 
-const letters = document.querySelectorAll('.anima2 div');
+const letters = document.querySelectorAll('.anima2 > div');
 
 letters.forEach(letter => {
-  letter.addEventListener('click', function () {
+  let played = false;
+
+  letter.addEventListener('click', () => {
+
+    if (played) return;
+
     letter.style.animation = 'none';
-    letter.style.transform = 'translate(0vw, 0vw)';
+    letter.offsetHeight; 
+
+    letter.classList.add('reverse');
+    letter.style.animation = '';
+
+    played = true;
+    
   });
+  
 });
 
- 
 
+const text = document.querySelector('.t_1');
 
+let finishedCount = 0;
 
+letters.forEach(letter => {
+  let played = false;
+
+  letter.addEventListener('click', () => {
+    if (played) return;
+
+    letter.style.animation = 'none';
+    letter.offsetHeight;
+
+    letter.classList.add('reverse');
+    letter.style.animation = '';
+
+    played = true;
+  });
+
+  letter.addEventListener('animationend', () => {
+    if (!played) return;
+
+    finishedCount++;
+
+    if (finishedCount === letters.length) {
+      text.classList.add('show');
+    }
+  });
+});
 
 });

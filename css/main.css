@@ -318,6 +318,7 @@ body{
 
 }
 
+
 .D{
   position: relative;
   height: 100%;
@@ -335,7 +336,7 @@ body{
   }
 
   100% {
-    transform: translate(-10vw, -12vw);
+    transform: translate(-10vw, -10vw);
   }
 
 }
@@ -470,7 +471,7 @@ body{
   }
 
   100% {
-    transform: translate(2vw, -12vw);
+    transform: translate(2vw, -10vw);
   }
 
 }
@@ -520,6 +521,22 @@ body{
 
 }
 
+.reverse {
+  animation-direction: reverse;
+}
 
+.t_1{
+  position: absolute;
+  z-index: 3;
+  font-family: "somic_m";
+  font-size: 2vw;
+  margin-left: 38vw;
+  margin-top: -20vw;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
 
+.show{
+  opacity: 1;
+}
 

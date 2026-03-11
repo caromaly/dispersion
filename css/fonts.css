@@ -1,0 +1,13 @@
+@font-face {
+    font-family: "somic_m";
+    src: url("../fonts/NTSomic-Medium.ttf") format(truetype);
+    font-weight: normal;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: "somic_b";
+    src: url("../fonts/NTSomic-Bold.ttf") format(truetype);
+    font-weight: bold;
+    font-style: bold;
+}
