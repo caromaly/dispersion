@@ -6,8 +6,15 @@
 }
 
 @font-face {
-    font-family: "somic_b";
-    src: url("../fonts/NTSomic-Bold.ttf") format(truetype);
+    font-family: "somic_sb";
+    src: url("../fonts/NTSomic-Semibold.ttf") format(truetype);
+    font-weight: bold;
+    font-style: bold;
+}
+
+@font-face {
+    font-family: "somic_r";
+    src: url("../fonts/NTSomic-Regular.ttf") format(truetype);
     font-weight: bold;
     font-style: bold;
 }
