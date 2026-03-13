@@ -151,26 +151,7 @@ function center(el) {
   };
 }
 
-function update() {
-
-  const mainPos = center(main);
-
-  buttons.forEach((btn, i) => {
-    const btnPos = center(btn);
-
-    lines[i].setAttribute("x1", mainPos.x);
-    lines[i].setAttribute("y1", mainPos.y);
-    lines[i].setAttribute("x2", btnPos.x);
-    lines[i].setAttribute("y2", btnPos.y);
-  });
-
-  requestAnimationFrame(update);
-}
-
-update();
-
 function shortenLine(x1, y1, x2, y2, cut) {
-
   const dx = x2 - x1;
   const dy = y2 - y1;
 
@@ -195,22 +176,46 @@ function update() {
 
     const btnPos = center(btn);
 
-    const linePos = shortenLine(
-      mainPos.x,
-      mainPos.y,
-      btnPos.x,
-      btnPos.y,
-      100 // сколько обрезать
-    );
+    function shortenLine(x1, y1, x2, y2, cutStart, cutEnd) {
 
-    lines[i].setAttribute("x1", linePos.x1);
-    lines[i].setAttribute("y1", linePos.y1);
-    lines[i].setAttribute("x2", linePos.x2);
-    lines[i].setAttribute("y2", linePos.y2);
+  const dx = x2 - x1;
+  const dy = y2 - y1;
+
+  const length = Math.sqrt(dx * dx + dy * dy);
+
+  const ux = dx / length;
+  const uy = dy / length;
+
+  return {
+    x1: x1 + ux * cutStart,
+    y1: y1 + uy * cutStart,
+    x2: x2 - ux * cutEnd,
+    y2: y2 - uy * cutEnd
+  };
+}
+
+const vw = window.innerWidth / 100;
+const line = shortenLine(
+  mainPos.x,
+  mainPos.y,
+  btnPos.x,
+  btnPos.y,
+  8 * vw,   // со стороны main
+  4 * vw    // со стороны button
+);
+
+
+    
+    lines[i].setAttribute("x1", line.x1);
+    lines[i].setAttribute("y1", line.y1);
+    lines[i].setAttribute("x2", line.x2);
+    lines[i].setAttribute("y2", line.y2);
   });
 
   requestAnimationFrame(update);
 }
+
+update();
 
 
 

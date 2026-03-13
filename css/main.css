@@ -593,6 +593,10 @@ body{
   position: absolute;
 }
 
+.but:hover{
+  text-shadow: 0 0 100px #F0AFA7;
+}
+
 .b1{
   margin-top: 10vw;
   animation: move1 4s infinite;
