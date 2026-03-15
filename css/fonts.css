@@ -15,6 +15,6 @@
 @font-face {
     font-family: "somic_r";
     src: url("../fonts/NTSomic-Regular.ttf") format(truetype);
-    font-weight: bold;
-    font-style: bold;
+    font-weight: normal;
+    font-style: normal;
 }

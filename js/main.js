@@ -200,8 +200,8 @@ const line = shortenLine(
   mainPos.y,
   btnPos.x,
   btnPos.y,
-  8 * vw,   // со стороны main
-  4 * vw    // со стороны button
+  8 * vw,
+  4 * vw
 );
 
 
@@ -219,11 +219,192 @@ update();
 
 
 
+const overlays = document.querySelectorAll('.overlay');
+const buto = document.querySelectorAll('.but');
+
+let current = null;
+
+function showPic(index){
+
+  overlays.forEach(el => el.classList.remove('active'));
+  buto.forEach(el => el.classList.remove('active'));
+
+  if(current === index){
+    current = null;
+    return;
+  }
+
+  overlays[index].classList.add('active');
+  buto[index].classList.add('active');
+
+  current = index;
+}
+
+document.querySelector('.b1').onclick = () => showPic(0);
+document.querySelector('.b2').onclick = () => showPic(1);
+document.querySelector('.b3').onclick = () => showPic(2);
+document.querySelector('.b4').onclick = () => showPic(3);
 
 
 
 
 
+
+
+
+const cards = document.querySelectorAll('.card');
+let first = null;
+let lock = false;
+
+cards.forEach(card => {
+  card.onclick = function () {
+    if (lock || card === first || card.classList.contains('done')) return;
+
+    card.classList.add('open');
+
+    if (!first) {
+      first = card;
+      return;
+    }
+
+    lock = true;
+
+    const ok =
+      (first.classList.contains('c1') && card.classList.contains('c4')) ||
+      (first.classList.contains('c4') && card.classList.contains('c1')) ||
+      (first.classList.contains('c2') && card.classList.contains('c5')) ||
+      (first.classList.contains('c5') && card.classList.contains('c2')) ||
+      (first.classList.contains('c3') && card.classList.contains('c6')) ||
+      (first.classList.contains('c6') && card.classList.contains('c3'));
+
+    if (ok) {
+      if (
+        (first.classList.contains('c1') && card.classList.contains('c4')) ||
+        (first.classList.contains('c4') && card.classList.contains('c1'))
+      ) {
+        document.querySelector('.pink').classList.add('act');
+      }
+
+      if (
+        (first.classList.contains('c2') && card.classList.contains('c5')) ||
+        (first.classList.contains('c5') && card.classList.contains('c2'))
+      ) {
+        document.querySelector('.red').classList.add('act');
+      }
+
+      if (
+        (first.classList.contains('c3') && card.classList.contains('c6')) ||
+        (first.classList.contains('c6') && card.classList.contains('c3'))
+      ) {
+        document.querySelector('.blue').classList.add('act');
+      }
+
+      first.classList.add('done');
+      card.classList.add('done');
+      first = null;
+      lock = false;
+    } else {
+      setTimeout(() => {
+        first.classList.remove('open');
+        card.classList.remove('open');
+        first = null;
+        lock = false;
+      }, 900);
+    }
+  };
+});
+
+
+
+const colb1 = document.querySelector('.colb1');
+const colb2 = document.querySelector('.colb2');
+const colb3 = document.querySelector('.colb3');
+const colb4 = document.querySelector('.colb4');
+const colb5 = document.querySelector('.colb5');
+
+const up1 = document.querySelector('.up1');
+const up2 = document.querySelector('.up2');
+const up3 = document.querySelector('.up3');
+const up4 = document.querySelector('.up4');
+const up5 = document.querySelector('.up5');
+
+const popups = document.querySelectorAll('.popup');
+
+let activeColb = null;
+let z = 2;
+
+function openPopup(popup, colb) {
+  if (activeColb) {
+    activeColb.classList.remove('active');
+  }
+
+  colb.classList.add('active');
+  activeColb = colb;
+
+  popup.classList.add('show');
+  popup.style.zIndex = z;
+  z++;
+}
+
+colb1.onclick = function () {
+  openPopup(up1, colb1);
+};
+
+colb2.onclick = function () {
+  openPopup(up2, colb2);
+};
+
+colb3.onclick = function () {
+  openPopup(up3, colb3);
+};
+
+colb4.onclick = function () {
+  openPopup(up4, colb4);
+};
+
+colb5.onclick = function () {
+  openPopup(up5, colb5);
+};
+
+up1.onclick = function (e) {
+  if (e.offsetX < 60 && e.offsetY < 60) {
+    up1.classList.remove('show');
+    colb1.classList.remove('active');
+    activeColb = null;
+  }
+};
+
+up2.onclick = function (e) {
+  if (e.offsetX < 60 && e.offsetY < 60) {
+    up2.classList.remove('show');
+    colb2.classList.remove('active');
+    activeColb = null;
+  }
+};
+
+up3.onclick = function (e) {
+  if (e.offsetX < 60 && e.offsetY < 60) {
+    up3.classList.remove('show');
+    colb3.classList.remove('active');
+    activeColb = null;
+  }
+};
+
+up4.onclick = function (e) {
+  if (e.offsetX < 60 && e.offsetY < 60) {
+    up4.classList.remove('show');
+    colb4.classList.remove('active');
+    activeColb = null;
+  }
+};
+
+up5.onclick = function (e) {
+  if (e.offsetX < 60 && e.offsetY < 60) {
+    up5.classList.remove('show');
+    colb5.classList.remove('active');
+    activeColb = null;
+  }
+};
 
 
 
