@@ -366,36 +366,37 @@ colb5.onclick = function () {
   openPopup(up5, colb5);
 };
 
-up1.onclick = function (e) {
+function closePopup(popup, colb, e) {
   if (e.offsetX < 60 && e.offsetY < 60) {
-    up1.classList.remove('show');
-    colb1.classList.remove('active');
+    popup.classList.remove('show');
+    colb.classList.remove('active');
     activeColb = null;
+
+    const text = popup.querySelector('.typewriter');
+    if (text) {
+      stopTypewriter(text, true);
+    }
   }
+}
+
+up1.onclick = function (e) {
+  closePopup(up1, colb1, e);
 };
 
 up2.onclick = function (e) {
-  if (e.offsetX < 60 && e.offsetY < 60) {
-    up2.classList.remove('show');
-    colb2.classList.remove('active');
-    activeColb = null;
-  }
+  closePopup(up2, colb2, e);
 };
 
 up3.onclick = function (e) {
-  if (e.offsetX < 60 && e.offsetY < 60) {
-    up3.classList.remove('show');
-    colb3.classList.remove('active');
-    activeColb = null;
-  }
+  closePopup(up3, colb3, e);
 };
 
 up4.onclick = function (e) {
-  if (e.offsetX < 60 && e.offsetY < 60) {
-    up4.classList.remove('show');
-    colb4.classList.remove('active');
-    activeColb = null;
-  }
+  closePopup(up4, colb4, e);
+};
+
+up5.onclick = function (e) {
+  closePopup(up5, colb5, e);
 };
 
 up5.onclick = function (e) {
@@ -412,14 +413,299 @@ up5.onclick = function (e) {
 
 
 
+const sec4Block = document.querySelector('.sec4');
+  const draggableElements = document.querySelectorAll('.sec4 .item');
+  const activeZones = document.querySelectorAll(
+    '.sec4 .activescene1, .sec4 .activescene2, .sec4 .activescene3'
+  );
+  const buttonBlock = document.querySelector('.but2');
+  const popupBlock = document.querySelector('.popup2');
+  const coverBlock = document.querySelector('.cover');
+
+  draggableElements.forEach((elementCard) => {
+    let shiftX = 0;
+    let shiftY = 0;
+    let dragging = false;
+
+    elementCard.addEventListener('mousedown', startDrag);
+    elementCard.addEventListener('touchstart', startDrag, { passive: false });
+
+    function startDrag(evt) {
+      evt.preventDefault();
+
+      const pointer = getPointer(evt);
+      const elementRect = elementCard.getBoundingClientRect();
+      const sec4Rect = sec4Block.getBoundingClientRect();
+
+      dragging = true;
+      elementCard.classList.add('dragging');
+      elementCard.style.zIndex = '5';
+
+      shiftX = pointer.clientX - elementRect.left;
+      shiftY = pointer.clientY - elementRect.top;
+
+      const currentLeft = elementRect.left - sec4Rect.left;
+      const currentTop = elementRect.top - sec4Rect.top;
+
+      elementCard.style.left = `${currentLeft}px`;
+      elementCard.style.top = `${currentTop}px`;
+      elementCard.style.marginLeft = '0';
+      elementCard.style.marginTop = '0';
+
+      document.addEventListener('mousemove', onDrag);
+      document.addEventListener('mouseup', stopDrag);
+      document.addEventListener('touchmove', onDrag, { passive: false });
+      document.addEventListener('touchend', stopDrag);
+    }
+
+    function onDrag(evt) {
+      if (!dragging) return;
+      evt.preventDefault();
+
+      const pointer = getPointer(evt);
+      const sec4Rect = sec4Block.getBoundingClientRect();
+
+      let nextLeft = pointer.clientX - sec4Rect.left - shiftX;
+      let nextTop = pointer.clientY - sec4Rect.top - shiftY;
+
+      const maxLeft = sec4Rect.width - elementCard.offsetWidth;
+      const maxTop = sec4Rect.height - elementCard.offsetHeight;
+
+      if (nextLeft < 0) nextLeft = 0;
+      if (nextTop < 0) nextTop = 0;
+      if (nextLeft > maxLeft) nextLeft = maxLeft;
+      if (nextTop > maxTop) nextTop = maxTop;
+
+      elementCard.style.left = `${nextLeft}px`;
+      elementCard.style.top = `${nextTop}px`;
+
+      updateAnimationState(elementCard);
+      updateButtonState();
+    }
+
+    function stopDrag() {
+      dragging = false;
+      elementCard.classList.remove('dragging');
+      elementCard.style.zIndex = '3';
+
+      updateAnimationState(elementCard);
+      updateButtonState();
+
+      document.removeEventListener('mousemove', onDrag);
+      document.removeEventListener('mouseup', stopDrag);
+      document.removeEventListener('touchmove', onDrag);
+      document.removeEventListener('touchend', stopDrag);
+    }
+  });
+
+  buttonBlock.addEventListener('click', () => {
+    if (!buttonBlock.classList.contains('on')) return;
+
+    popupBlock.classList.add('show');
+    coverBlock.classList.add('show');
+    popupBlock.style.visibility = 'visible';
+    popupBlock.style.pointerEvents = 'auto';
+  });
+
+  coverBlock.addEventListener('click', () => {
+    popupBlock.classList.remove('show');
+    coverBlock.classList.remove('show');
+    popupBlock.style.visibility = 'hidden';
+    popupBlock.style.pointerEvents = 'none';
+  });
+
+  function getPointer(evt) {
+    return evt.touches ? evt.touches[0] : evt;
+  }
+
+  function updateAnimationState(elementCard) {
+    if (isInActiveZone(elementCard)) {
+      elementCard.style.animation = 'none';
+    } else {
+      elementCard.style.animation = '';
+    }
+  }
+
+  function updateButtonState() {
+    let hasActiveElement = false;
+
+    draggableElements.forEach((elementCard) => {
+      if (isInActiveZone(elementCard)) {
+        hasActiveElement = true;
+      }
+    });
+
+    if (hasActiveElement) {
+      buttonBlock.classList.add('on');
+    } else {
+      buttonBlock.classList.remove('on');
+
+      popupBlock.classList.remove('show');
+      coverBlock.classList.remove('show');
+      popupBlock.style.visibility = 'hidden';
+      popupBlock.style.pointerEvents = 'none';
+    }
+  }
+
+  function isInActiveZone(elementCard) {
+    const elementRect = elementCard.getBoundingClientRect();
+
+    for (const zoneBlock of activeZones) {
+      const zoneRect = zoneBlock.getBoundingClientRect();
+
+      const overlapX = Math.max(
+        0,
+        Math.min(elementRect.right, zoneRect.right) - Math.max(elementRect.left, zoneRect.left)
+      );
+
+      const overlapY = Math.max(
+        0,
+        Math.min(elementRect.bottom, zoneRect.bottom) - Math.max(elementRect.top, zoneRect.top)
+      );
+
+      const overlapArea = overlapX * overlapY;
+      const elementArea = elementRect.width * elementRect.height;
+
+      if (overlapArea > elementArea * 0.3) {
+        return true;
+      }
+    }
+
+    return false;
+  }
 
 
 
 
+  
+    const takeButton = document.querySelector('.take');
+
+    takeButton.addEventListener('click', () => {
+      popupBlock.classList.remove('show');
+      coverBlock.classList.remove('show');
+      popupBlock.style.visibility = 'hidden';
+      popupBlock.style.pointerEvents = 'none';
+    });
+
+    buttonBlock.addEventListener('click', () => {
+  if (!buttonBlock.classList.contains('on')) return;
+
+  popupBlock.classList.add('show');
+  coverBlock.classList.add('show');
+
+  popupBlock.style.visibility = 'visible';
+  popupBlock.style.pointerEvents = 'auto';
+
+  document.body.classList.add('lock');
+});
+
+coverBlock.addEventListener('click', () => {
+  popupBlock.classList.remove('show');
+  coverBlock.classList.remove('show');
+
+  popupBlock.style.visibility = 'hidden';
+  popupBlock.style.pointerEvents = 'none';
+
+  document.body.classList.remove('lock');
+});
+
+takeButton.addEventListener('click', () => {
+  popupBlock.classList.remove('show');
+  coverBlock.classList.remove('show');
+
+  popupBlock.style.visibility = 'hidden';
+  popupBlock.style.pointerEvents = 'none';
+
+  document.body.classList.remove('lock');
+});
 
 
 
 
+    const TYPE_SPEED = 30;
+
+    function prepareTypewriters() {
+      document.querySelectorAll('.typewriter').forEach((element) => {
+        if (!element.dataset.originalHtml) {
+          element.dataset.originalHtml = element.innerHTML;
+        }
+
+        const popup = element.closest('.popup');
+
+        if (!popup || !popup.classList.contains('show')) {
+          element.innerHTML = '';
+        }
+      });
+    }
+
+    function stopTypewriter(element, clearText = false) {
+      if (element._typeTimer) {
+        clearTimeout(element._typeTimer);
+      }
+
+      element._typingRun = (element._typingRun || 0) + 1;
+
+      if (clearText) {
+        element.innerHTML = '';
+      }
+    }
+
+    function startTypewriter(element) {
+      const original = element.dataset.originalHtml || element.innerHTML;
+
+      stopTypewriter(element, true);
+
+      let i = 0;
+      const runId = element._typingRun;
+
+      function type() {
+        if (element._typingRun !== runId) return;
+
+        if (i >= original.length) return;
+
+        if (original.slice(i, i + 4).toLowerCase() === '<br>') {
+          element.innerHTML += '<br>';
+          i += 4;
+        } else {
+          element.innerHTML += original[i];
+          i++;
+        }
+
+        element._typeTimer = setTimeout(type, TYPE_SPEED);
+      }
+
+      type();
+    }
+
+    function restartPopupTypewriter(popup) {
+      const text = popup.querySelector('.typewriter');
+      if (!text) return;
+
+      startTypewriter(text);
+    }
+
+    prepareTypewriters();
+
+    document.querySelectorAll('.popup.show').forEach((popup) => {
+      restartPopupTypewriter(popup);
+    });
+
+    function openPopup(popup, colb) {
+      if (activeColb) {
+        activeColb.classList.remove('active');
+      }
+
+      colb.classList.add('active');
+      activeColb = colb;
+
+      popup.classList.add('show');
+      popup.style.zIndex = z;
+      z++;
+
+      restartPopupTypewriter(popup);
+    }
 
 
+
+    
 });
