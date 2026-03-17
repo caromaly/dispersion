@@ -707,5 +707,20 @@ takeButton.addEventListener('click', () => {
 
 
 
+document.querySelectorAll('.pict').forEach(p => {
+  p.onclick = () => {
+    
+    p.classList.add('shake');
+    setTimeout(() => p.classList.remove('shake'), 400);
+
+    let topImg = p.querySelector('[class*="_2"]');
+    topImg.style.opacity = "1";
+  }
+});
+
+
+
+
+
     
 });
