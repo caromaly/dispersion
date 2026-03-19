@@ -785,6 +785,10 @@ body{
   background-image: url(../images/card0.svg);
 }
 
+.push{
+  background-image: url(../images/push.svg);
+}
+
 .back{
   transform: rotateY(180deg);
 }
@@ -950,6 +954,8 @@ body{
   transform: translateY(0);
 }
 
+
+
 .up0{
   margin-left: 9vw;
   margin-top: -2.5vw;
@@ -1072,7 +1078,7 @@ body{
 
 .sec4{
   position: relative;
-  margin-top: 15vw;
+  margin-top: 10vw;
   width: 100vw;
   height: 57vw;
 }
@@ -1344,6 +1350,11 @@ body{
   transition: opacity 0.3s ease, visibility 0.3s ease;
 }
 
+.popupvideo{
+  margin-top: 5vw;
+  width: 90%;
+  height: 70%;
+} 
 .popup2.show{
   opacity: 1;
 }
@@ -1410,8 +1421,9 @@ body.lock{
 }
 
 .sec5{
+    margin-top: 15vw;
     width: 100vw;
-    height: 52vw;
+    height: 57vw;
     display: flex;
 
 }
@@ -1423,13 +1435,16 @@ body.lock{
 
 .pict{
   position: absolute;
-  width: 17.4vw;
-  height: 17.3vw;
+  width: 15.4vw;
+  height: 19.4vw;
   
 }
 
 .pict1_2, .pict1_0, .pict2_2, .pict2_0, .pict3_0, .pict3_2{
   position: absolute;
+  width: 15.4vw;
+  height: 19.4vw;
+
 }
 
 @keyframes shake {
@@ -1466,10 +1481,11 @@ body.lock{
 
 
 .table{
-  width: 67.7vw;
-  height: 27.3vw;
+  width: 65vw;
+  height: 25vw;
   position: absolute;
   background-image: url(../images/table.svg);
+  background-size: contain;
   background-repeat: no-repeat;
   margin-top: 20vw;
 
@@ -1550,120 +1566,255 @@ body.lock{
   margin-left: 39vw;
 }
 
-
-
-
-.p5p2{
-  width: 40%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 2vw;
+.p5p2 {
+    width: 40%;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 2vw;
 }
 
-.bubble1{
-  margin-top: 6vw;
-  width: 30vw;
-  height: 6.3vw;
-  background-image: url(../images/bubble1.svg);
-  background-repeat: no-repeat;
-  background-size: contain;
+.bubble1 {
+    margin-top: 6vw;
+    width: 30vw;
+    height: 6.3vw;
+    background-image: url(../images/bubble1.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
 }
 
-.bb1{
+.bb1 {
+    position: absolute;
+    margin-top: 1.5vw;
+    margin-left: 2vw;
+}
+
+.bubble2 {
+    margin-top: 0vw;
+    margin-left: 20vw;
+    width: 18.3vw;
+    height: 5.5vw;
+    background-image: url(../images/bubble2.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    transition: opacity 0.3s ease;
+}
+
+.bubble2:hover {
+    opacity: 0.9;
+}
+
+.bubble3 {
+    margin-top: 0vw;
+    margin-left: 10vw;
+    width: 28.2vw;
+    height: 17vw;
+    background-image: url(../images/bubble3.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    pointer-events: none;
+}
+
+.bubble3.visible {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.bubble4 {
+    margin-top: 0vw;
+    margin-left: 2vw;
+    width: 18.3vw;
+    height: 5.5vw;
+    background-image: url(../images/bubble4.svg);
+    background-repeat: no-repeat;
+    background-size: contain;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+}
+
+.bubble4.visible {
+    opacity: 1;
+}
+
+
+.bubble2 p,
+.bubble3 p,
+.bubble4 p {
+    position: absolute;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.bb2_0 {
+    margin-top: 1.7vw;
+    margin-left: 5.5vw;
+    font-family: "somic_sb";
+}
+
+.bb2_1 {
+    margin-top: 1.7vw;
+    margin-left: 2vw;
+    font-family: "somic_sb";
+}
+
+.bb2_2 {
+    margin-top: 1.7vw;
+    margin-left: 5.5vw;
+    font-family: "somic_sb";
+}
+
+.bb2_3 {
+    margin-top: 1.7vw;
+    margin-left: 2.5vw;
+    font-family: "somic_sb";
+}
+
+.bb3_1 {
+    margin-top: 3vw;
+    margin-left: 2vw;
+}
+
+.bb3_2 {
+    margin-top: 3vw;
+    margin-left: 2vw;
+}
+
+.bb3_3 {
+    margin-top: 3vw;
+    margin-left: 2vw;
+}
+
+.bb4_1 {
   position: absolute;
-  margin-top: 1.5vw;
-  margin-left: 2vw;
+    margin-top: 1.7vw;
+    margin-left: 5.5vw;
+    font-family: "somic_sb";
 }
 
-.bubble2{
-  margin-top: 0vw;
-  margin-left: 20vw;
-  width: 18.3vw;
-  height: 5.5vw;
-  background-image: url(../images/bubble2.svg);
-  background-repeat: no-repeat;
-  background-size: contain;
+.bb4_2 {
+    margin-top: 1.7vw;
+    margin-left: 5.5vw;
+    font-family: "somic_sb";
 }
 
-.bubble3{
-  margin-top: 0vw;
-  margin-left: 10vw;
-  width: 28.2vw;
-  height: 17vw;
-  background-image: url(../images/bubble3.svg);
-  background-repeat: no-repeat;
-  background-size: contain;
+.bubble2 .active-text {
+    opacity: 1;
+}
+
+.bubble3 .active-text {
+    opacity: 1;
+}
+
+.bubble4 .active-text {
+    opacity: 1;
+}
+
+.bubble2 p,
+.bubble3 p,
+.bubble4 p {
+    transition: opacity 0.5s ease;
+}
+
+.write{
+  width: 15.4vw;
+  height: 3vw;
+  margin-top: 15.5vw;
+}
+
+.write {
+    position: relative;
+    display: inline-block;
+}
+
+.input-write {
+    border: none;
+    outline: none;
+    background: transparent;
+    font: inherit; 
+    width: 15.4vw;
+    text-align: center;
+    caret-color: transparent;
+}
+
+
+.sec6{
+    width: 100vw;
+    height: 62.5vw;
+    position: relative;
+    overflow: hidden;
+    display: flex;
 
 }
 
-.bubble4{
-  margin-top: 0vw;
-  margin-left: 2vw;
-  width: 18.3vw;
-  height: 5.5vw;
-  background-image: url(../images/bubble4.svg);
-  background-repeat: no-repeat;
-  background-size: contain;
 
+.sec6{
+    width: 100vw;
+    height: 62.5vw;
+    position: relative;
+    overflow: hidden;
+    display: flex;
 }
 
-.bb2_0{
-  margin-top: 1vw;
-  margin-left: 3vw;
-  position: absolute;
-  font-family: "somic_sb";
+.bottle{
+    position: absolute;
+    margin-top: 17vw;
+    width: 34.5vw;
+    height: 40.5vw;
+    background-image: url(../images/bottle.png);
+    background-repeat: no-repeat;
+    background-size: contain;
+    cursor: pointer;
+    animation: bottleJump 2s ease-in-out infinite,
+               bottleGlow 1.8s ease-in-out infinite;
 }
 
-.bb2_1{
-  margin-top: 1.5vw;
-  margin-left: 2vw;
-  position: absolute;
-  font-family: "somic_sb";
+.splash{
+    position: absolute;
+    margin-left: 34.5vw;
+    margin-top: 17vw;
+    width: 82.8vw;
+    height: 45.5vw;
 }
 
-.bb2_2{
-  margin-top: 1.5vw;
-  margin-left: 2vw;
-  position: absolute;
-  font-family: "somic_sb";
+.backpic{
+    position: absolute;
+    width: 82.8vw;
+    height: 50vw;
+    margin-left: -10vw;
+    opacity: 0;
+    transition: opacity 0.4s ease;
+    pointer-events: none;
 }
 
-.bb2_3{
-  margin-top: 1.5vw;
-  margin-left: 2vw;
-  position: absolute;
-  font-family: "somic_sb";
+.backpic.show{
+    opacity: 1;
+    animation: splashBlink 0.5s ease-in-out 3;
 }
 
-.bb3_1{
-  margin-top: 3vw;
-  margin-left: 2vw;
-  position: absolute;
-  opacity: 0;
+
+@keyframes bottleJump {
+    0%   { transform: translateY(0); }
+    50%  { transform: translateY(-0.8vw); }
+    100% { transform: translateY(0); }
 }
 
-.bb3_2{
-  margin-top: 3vw;
-  margin-left: 2vw;
-  position: absolute;
-  opacity: 0;
+
+@keyframes bottleGlow {
+    0% {
+        filter: drop-shadow(0 0 0vw rgba(255, 105, 180, 0));
+    }
+    50% {
+        filter: drop-shadow(0 0 1.2vw #C35446);
+    }
+    100% {
+        filter: drop-shadow(0 0 0vw rgba(255, 105, 180, 0));
+    }
 }
 
-.bb3_3{
-  margin-top: 3vw;
-  margin-left: 2vw;
-  position: absolute;
-}
-
-.bb4_0{
-  margin-top: 2vw;
-  margin-left: 5vw;
-  position: absolute;
-}
-
-.bb4_1{
-  margin-top: 2vw;
-  margin-left: 7vw;
-  position: absolute;
+@keyframes splashBlink {
+    0%   { opacity: 0.2; }
+    50%  { opacity: 1; }
+    100% { opacity: 0.7; }
 }

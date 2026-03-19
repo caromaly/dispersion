@@ -194,14 +194,14 @@ function update() {
   };
 }
 
-const vw = window.innerWidth / 100;
+const vw = window.innerWidth / 90;
 const line = shortenLine(
   mainPos.x,
   mainPos.y,
   btnPos.x,
   btnPos.y,
   8 * vw,
-  4 * vw
+  5 * vw
 );
 
 
@@ -705,6 +705,22 @@ takeButton.addEventListener('click', () => {
       restartPopupTypewriter(popup);
     }
 
+    function restartBubble3Typewriter() {
+    stopTypewriter(text3_1, true);
+    stopTypewriter(text3_2, true);
+    stopTypewriter(text3_3, true);
+
+    if (step === 1) {
+        startTypewriter(text3_1);
+    }
+    else if (step === 2) {
+        startTypewriter(text3_2);
+    }
+    else if (step === 3) {
+        startTypewriter(text3_3);
+    }
+}
+
 
 
 document.querySelectorAll('.pict').forEach(p => {
@@ -721,6 +737,130 @@ document.querySelectorAll('.pict').forEach(p => {
 
 
 
+const bubble2 = document.querySelector('.bubble2');
+const bubble3 = document.querySelector('.bubble3');
+const bubble4 = document.querySelector('.bubble4');
+
+const text2_0 = document.querySelector('.bb2_0');
+const text2_1 = document.querySelector('.bb2_1');
+const text2_2 = document.querySelector('.bb2_2');
+const text2_3 = document.querySelector('.bb2_3');
+
+const text3_1 = document.querySelector('.bb3_1');
+const text3_2 = document.querySelector('.bb3_2');
+const text3_3 = document.querySelector('.bb3_3');
+
+const text4_1 = document.querySelector('.bb4_1');
+const text4_2 = document.querySelector('.bb4_2');
+
+
+let step = 0;
+
+function hideAllTexts() {
+
+    text2_0.classList.remove('active-text');
+    text2_1.classList.remove('active-text');
+    text2_2.classList.remove('active-text');
+    text2_3.classList.remove('active-text');
+    
+    text3_1.classList.remove('active-text');
+    text3_2.classList.remove('active-text');
+    text3_3.classList.remove('active-text');
+    
+    text4_1.classList.remove('active-text');
+    text4_2.classList.remove('active-text');
+}
+
+function updateDisplay() {
+    hideAllTexts();
+    
+    if (step === 0) {
+        text2_0.classList.add('active-text');
+        bubble3.classList.remove('visible');
+        bubble4.classList.remove('visible');
+    }
+    else if (step === 1) {
+        text2_1.classList.add('active-text');
+        text3_1.classList.add('active-text');
+        text4_1.classList.add('active-text');
+        bubble3.classList.add('visible');
+        bubble4.classList.add('visible');
+    }
+    else if (step === 2) {
+        text2_2.classList.add('active-text');
+        text3_2.classList.add('active-text');
+        text4_1.classList.add('active-text');
+        bubble3.classList.add('visible');
+        bubble4.classList.add('visible');
+    }
+    else if (step === 3) {
+        text2_3.classList.add('active-text');
+        text3_3.classList.add('active-text');
+        text4_2.classList.add('active-text');
+        bubble3.classList.add('visible');
+        bubble4.classList.add('visible');
+    }
+    
+    setupEventListeners();
+    restartBubble3Typewriter();
+}
+
+
+function setupEventListeners() {
+
+    bubble2.onclick = function() {
+        if (step === 0) {
+            step = 1;
+            updateDisplay();
+        }
+    };
+
+    if (text4_1) {
+        text4_1.onclick = function(e) {
+            e.stopPropagation();
+            if (step === 1) {
+                step = 2;
+                updateDisplay();
+            }
+            else if (step === 2) {
+                step = 3;
+                updateDisplay();
+            }
+        };
+    }
+    
+
+    if (text4_2) {
+        text4_2.onclick = function(e) {
+            e.stopPropagation();
+            if (step === 3) {
+                step = 0;
+                updateDisplay();
+            }
+        };
+    }
+}
+
+updateDisplay();
+
+
+const input = document.querySelector('.input-write');
+const write = document.querySelector('.write');
+
+input.addEventListener('input', () => {
+    const length = input.value.length;
+
+    // двигаем "палочку" вправо
+    write.style.setProperty('--pos', length);
+    write.style.width = (length * 10 + 10) + 'px';
+});
+
+const bottle = document.getElementById('bottle');
+const backpic = document.getElementById('backpic');
+
+bottle.addEventListener('click', function () {
+    backpic.classList.add('show');
+});
 
     
 });
