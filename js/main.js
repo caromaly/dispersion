@@ -136,7 +136,7 @@ const lines = [];
 buttons.forEach(() => {
   const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
   line.setAttribute("stroke", "black");
-  line.setAttribute("stroke-width", "3");
+  line.setAttribute("stroke-width", "0.3vw");
   svg.appendChild(line);
   lines.push(line);
 });
@@ -686,7 +686,7 @@ takeButton.addEventListener('click', () => {
 
     prepareTypewriters();
 
-    document.querySelectorAll('.popup.show').forEach((popup) => {
+     document.querySelectorAll('.popup.show').forEach((popup) => {
       restartPopupTypewriter(popup);
     });
 
@@ -720,6 +720,9 @@ takeButton.addEventListener('click', () => {
         startTypewriter(text3_3);
     }
 }
+
+
+
 
 
 

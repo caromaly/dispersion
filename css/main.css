@@ -1649,7 +1649,6 @@ body.lock{
 
 .bb2_0 {
     margin-top: 1.7vw;
-    margin-left: 5.5vw;
     font-family: "somic_sb";
 }
 
@@ -1749,14 +1748,6 @@ body.lock{
 }
 
 
-.sec6{
-    width: 100vw;
-    height: 62.5vw;
-    position: relative;
-    overflow: hidden;
-    display: flex;
-}
-
 .bottle{
     position: absolute;
     margin-top: 17vw;
@@ -1766,8 +1757,7 @@ body.lock{
     background-repeat: no-repeat;
     background-size: contain;
     cursor: pointer;
-    animation: bottleJump 2s ease-in-out infinite,
-               bottleGlow 1.8s ease-in-out infinite;
+    animation: bottleJump 2s ease-in-out infinite, bottleGlow 1.8s ease-in-out infinite;
 }
 
 .splash{
