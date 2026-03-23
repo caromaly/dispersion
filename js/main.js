@@ -136,7 +136,7 @@ const lines = [];
 buttons.forEach(() => {
   const line = document.createElementNS("http://www.w3.org/2000/svg", "line");
   line.setAttribute("stroke", "black");
-  line.setAttribute("stroke-width", "0.3vw");
+  line.setAttribute("stroke-width", "0.4vw");
   svg.appendChild(line);
   lines.push(line);
 });
