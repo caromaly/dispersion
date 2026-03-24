@@ -1131,12 +1131,15 @@ body{
   
  
   .bb2_3,
-  .bb4_1,
   .bb4_2 {
     margin-top: 3vw;
     margin-left: 7vw;
   }
 
+  .bb4_1{
+    margin-top: 3vw;
+    margin-left: 8vw;
+  }
   .bb2_2{
     margin-top: 3vw;
     margin-left: 11vw;
@@ -1209,11 +1212,6 @@ body{
 
 
 
-
-
-
-
-/* 
 
 @media screen and (min-width: 769px) and (max-width:  1366px) {
 
@@ -2432,4 +2430,4 @@ body{
 
 
 
-} */
+} 
